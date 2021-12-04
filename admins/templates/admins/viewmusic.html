@@ -1,0 +1,124 @@
+{% extends "mainpage.html" %}
+{% load static %}
+
+{% block title %}
+    <title>View Music</title>
+{% endblock title %}
+{% block css %}
+<style type="text/css">
+    .table{
+        table-layout: fixed;
+    }
+    th{
+        color: #72727d;
+        font-size: 0.9rem;
+    }
+    tr{
+        color: #fff;
+        height: 52px;
+    }
+    td{
+        font-size: 0.9rem;
+    }
+    td:hover,td:active{
+        color: #ef5466;
+        font-size: 0.9rem;
+    }
+    .form-inline .form-group {
+      margin-right:10%;
+    }
+    .form-group label{
+        margin-right: 2.5rem;
+    }
+
+
+</style>
+{% endblock css %}
+
+{% load crispy_forms_tags %}
+{% block container %}
+<div class="container">
+    {% for message in messages %}
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+    <h6 class="success_message py-3 px_1 my-2 text-center">{{ message }}</h6>
+
+    {% endif %}
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+    <h6 class="error_message py-3 px_1 my-2 text-center">{{ message }}</h6>
+
+    {% endif %}
+    {% endfor %}
+    <a href="{% url 'add_music' %}" class="btn btn-danger ml-3 mt-3 mb-3">Add New Music</a>
+
+    <div class="ml-3 mt-3 mb-3">
+        <div class="row">
+            <div class="col-md-8">
+                <form method="GET">
+                    <fieldset class="form-group">
+                        {{ myFilter.form|crispy }}
+                    </fieldset>
+                    <div class="form-group">
+                        <button class="btn btn-outline-info" type="submit">
+                            Search
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {% comment %}<button class="btn btn-primary" type="submit">Search</button>{% endcomment %}
+    </div>
+    <div class="col-md-11">
+        <div class="table-responsive">
+            <table id="bootstrapdatatable" class="table table-striped" width="100%">
+                <thead>
+                    <th style="width:5%;">#</th>
+                    <th style="width:15%;">Song Name</th>
+                    <th style="width:11%;">Artist</th>
+                    <th style="width:18%">Album</th>
+                    <th style="width:10%">Released Year</th>
+                    <th style="width:10%">Genre</th>
+                    <th style="width:5%">Edit</th>
+                    <th style="width:5%">Delete</th>
+                </thead>
+                <tbody>
+                    {% for song in songs  %}
+                        <tr>
+                            <td>
+                                {{ forloop.counter }}
+                            </td>
+                            <td class ="text-truncate">{{ song.song_title }}</td>
+                            <td class ="text-truncate">{{ song.artist }}</td>
+                            <td class ="text-truncate">{{ song.album_title }}</td>
+                            <td class ="text-truncate">{{ song.genre }}</td>
+                            <td class ="text-truncate">{{ song.released_year }}</td>
+                            <td>
+                                <p data-placement="top" data-toggle="tooltip" title="Edit">
+                                    <a href="/admins/updateMusic/{{ song.id }}" class="btn btn-primary btn-xs">
+                                        <i class="fas fa-edit" style="width:100%"></i>
+                                    </a>
+                                </p>
+                            </td>
+                            <td>
+                                <p data-placement="top" data-toggle="tooltip" title="Delete">
+                                    <a href="/admins/deleteMusic/{{ song.id }}" class="btn btn-danger btn-xs">
+                                        <i class="fas fa-trash-alt" style="width:100%"></i>
+                                    </a>
+                                </p>
+                            </td>
+
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock container %}
+{{% block javascript %}
+
+{% endblock javascript %}}
+

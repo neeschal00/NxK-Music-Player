@@ -1,0 +1,162 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
+:root{
+    --header-height: 3rem;
+    --nav-width: 85px;
+
+    /*colors*/
+    --first-color: #0C5DF4;
+    --bg-color: #101216;
+    --sub-color: #B6CEFC;
+    --white-color: #fff;
+    --second-color: #ef5466;
+/*#030303*/
+    /*===== Font and typography =====*/
+    --body-font: 'Nunito', sans-serif;
+    --normal-font-size: 1rem;
+    --small-font-size: .875rem;
+
+    /*===== z index =====*/
+    --z-fixed: 100;
+}
+
+*,::before,::after{
+    box-sizing: border-box;
+}
+body{
+    position: relative;
+    margin: 0;
+    padding: 2rem 0 0 6.75rem;
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+    transition: .5s;
+    background-color: #010305 !important;
+}
+a{
+  text-decoration: none;
+}
+a:hover{
+    text-decoration: none;
+}
+h1{
+    margin: 0;
+}
+ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+
+header{
+    line-height: 40px;
+}
+nav.navbar{
+    background-color: var(--bg-color);
+    box-shadow: 0 3px 9px rgb(0 0 0 / 5%);
+}
+nav.navbar a{
+    margin-left: 3%;
+}
+.profile-img{
+    width: 35px;
+}
+
+.dropdown .btn{
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.m-title{
+    font-weight: 900;
+    color: #3b4452;
+    font-size: 1.8rem;
+}
+.m-title span{
+    color: #b35967;
+}
+#main-section{
+    margin-top: 70px;
+}
+#lr-btn{
+    width:218px;
+}
+.l-btn:hover{
+    background-color: #17A2B8;
+}
+
+
+/*lnav */
+.l-navbar{
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: var(--nav-width);
+    height: 100vh;
+    background-color: var(--bg-color);
+    color: var(--white-color);
+    padding: 1.5rem 1.5rem 2rem;
+    transition: .5s;
+    z-index: var(--z-index);
+}
+
+/*nav*/
+.navx{
+    height: 100%;
+    display: fles;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+}
+.nav__brand{
+    display: grid;
+    grid-template-columns: max-content max-content;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+.nav__toggle{
+    font-size: 1.25rem;
+    padding: .65rem;
+    cursor: pointer;
+}
+.nav__logo{
+    color: var(--white-color);
+    font-weight: 600;
+}
+.active{
+    color: var(--second-color) !important;
+    /*background: var(--second-color) !important;*/
+}
+.nav__link{
+    display: grid;
+    grid-template-columns: max-content max-content;
+    align-items: center;
+    column-gap: .75rem;
+    padding: .75rem;
+    color: var(--white-color);
+    border-radius: .5rem;
+    margin-bottom: 1rem;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.nav__link:hover{
+    color: var(--second-color);
+}
+.nav__icon{
+    font-size: 1.25rem;
+}
+.nav__name{
+    font-size: var(--small-font-size);
+}
+
+/* expander menu*/
+.expander{
+    width: calc(var(--nav-width)+12.25rem);
+}
+.body-pd{
+    padding: 2rem 0 0 16rem;
+}
+
+
+

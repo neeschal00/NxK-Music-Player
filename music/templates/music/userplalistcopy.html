@@ -1,0 +1,43 @@
+{% extends 'mainui.html' %}
+{% load static %}
+{% comment %}{% load media %}{% endcomment %}
+{% block title %}
+    <title>Playlists</title>
+
+{% endblock %}
+{% block csss %}
+  <style type="text/css">
+    .default-bg{
+      background-color: var(--bg-color);
+      color: var(--white-color);
+    }
+    h6.card-subtitle{
+      color: #a9abb3;
+    }
+
+  </style>
+{% endblock csss %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h3 class="text-white font-weight-bolder">All Playlists</h3>
+<div class="row">
+
+    <div class="card m-3 default-bg" style="width: 15rem;">
+      <a href="{% url 'playlist-create' %}">
+        <img class="card-img-top" src="{% static "images/create-music.jpg" %}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title text-truncate text-white font-weight-bolder" style="width: 12rem;">Create Playlist</h5>
+        </div>
+      </a>
+    </div>
+
+</div>
+
+
+{% endblock %}
+{% block javascript %}
+<script>
+  let userId = {{user.id}};
+  console.log(userId);
+</script>
+{% endblock javascript %}

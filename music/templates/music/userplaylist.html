@@ -1,0 +1,112 @@
+{% extends 'mainui.html' %}
+{% load static %}
+{% comment %}{% load media %}{% endcomment %}
+{% block title %}
+    <title>Playlists</title>
+
+{% endblock %}
+{% block csss %}
+  <style type="text/css">
+    .default-bg{
+      background-color: var(--bg-color);
+      color: var(--white-color);
+    }
+    h6.card-subtitle{
+      color: #a9abb3;
+    }
+    legend{
+        font-size: 3rem;
+        font-weight: 600;
+        background: -webkit-linear-gradient(#b35967,#17a2b8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    input[type=text],input[type=text]:focus,
+    .textarea,.textarea:focus{
+        background-color: #101316;
+        color: #fff;
+    }
+    input[type=text]:focus,.textarea:focus{
+        border: 1px solid #17a2b8;
+    }
+    label{
+        color: #97B4B4;
+    }
+    div{
+        color: #97B4B4;
+    }
+    a{
+      color: #fff;
+    }
+    a:hover, a:active{
+      color:#ef5466;
+    }
+    a h5:hover, a h5:active{
+      color:#ef5466;
+    }
+
+  </style>
+{% endblock csss %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h3 class="text-white m-3 font-weight-bolder">All Playlists</h3>
+<div class="row">
+      <div class="card m-3 default-bg" style="width: 15rem;">
+        <img class="card-img-top" src="{% static "images/create-music.jpg" %}" alt="Card image cap">
+        <div class="card-body">
+          <a class="btn" data-switch="0" type="button" data-toggle="modal" data-target="#exampleModal">
+            <h5 class="card-title text-truncate text-white font-weight-bolder" style="font-size:1.5rem;">Create Playlist</h5>
+          </a>
+        </div>
+      </div>
+    {% for playlists in userplaylist  %}
+        <div class="card m-3 default-bg" style="width: 15rem;">
+          <img class="card-img-top" src="{% static "images/playlist-default.jpg" %}" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title text-truncate text-white font-weight-bolder" style="width: 12rem;"><a href="{% url "individual-playlist"  pl_id=playlists.id  %}">{{ playlists.playlist_name }}</a></h5>
+          </div>
+        </div>
+    {% endfor %}
+    <!-- Modal -->
+    <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content default-bg">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Create New Playlist</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="POST">
+              {% csrf_token %}
+              <fieldset class="form-group">
+                <legend class="border-bottom mb-4 main-t">New Playlist</legend>
+                  {{ form|crispy }}
+              </fieldset>
+              <div class="form-group">
+                <button class="btn btn-outline-danger" type="submit">
+                    Create
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+{% endblock %}
+{% block javascript %}
+<script>
+  let userId = {{user.id}};
+  console.log(userId);
+</script>
+{% endblock javascript %}
+
+
+

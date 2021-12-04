@@ -1,0 +1,308 @@
+{% include "mainui.html" %}
+{% load static %}
+
+{% block title %}
+    <title>View Music</title>
+{% endblock title %}
+{% block css %}
+<style type="text/css">
+    th{
+        color: #72727d;
+        font-size: 0.9rem;
+    }
+    tr{
+        color: #fff;
+        height: 52px;
+    }
+    td{
+        font-size: 0.9rem;
+        color: #fff;
+    }
+    td:hover,td:active{
+        color: #ef5466;
+        font-size: 0.9rem;
+    }
+    h3.h3{
+        margin-left: 2rem;
+        font-weight: 700;
+    }
+    #div_id_song_name label{
+        display: none;
+    }
+    .dropdown-menu {
+      max-height: 200px;
+    }
+    #add-dropdown{
+        background-color: #191922;
+    }
+    #style-1 ,#style-1:hover,#style-1:active{
+        background-color: #191922;
+        color: #fff;
+    }
+    #add-dropdown a{
+        color: #fff;
+    }
+    #add-dropdown a:hover, #add-dropdown a:active{
+        background-color: #191922;
+        color: #ef5466;
+    }
+    button.btn-add {
+        color:#32323D;
+    }
+    button.btn-add:hover, button.btn-add:active{
+        background-color: #32323D;
+        color: #fff;
+        outline: none;
+    }
+    .scrollbar
+            {
+                float: left;
+                height: 250px;
+                width: 200px;
+                background: #F5F5F5;
+                overflow-y: scroll;
+                margin-bottom: 25px;
+            }
+    .force-overflow
+    {
+        min-height: 250px;
+    }
+    #style-1::-webkit-scrollbar-track
+    {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        border-radius: 10px;
+        background-color: #F5F5F5;
+    }
+
+    #style-1::-webkit-scrollbar
+    {
+        width: 12px;
+        background-color: #F5F5F5;
+    }
+
+    #style-1::-webkit-scrollbar-thumb
+    {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+        background-color: #555;
+    }
+    #popUp{
+        float: right;
+        width: 12.5rem;
+        background-color: rgba(82,82,93,.9);
+        border-radius: 3px;
+        box-shadow: 0 2px 4px rgb(10 10 22 / 30%);
+        z-index: 9000;
+        padding: 2px;
+    }
+    .heart-co {
+        color: #dc3545;
+    }
+
+</style>
+{% endblock css %}
+
+{% load crispy_forms_tags %}
+{% block container %}
+<div class="container">
+    {% for message in messages %}
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+        <h6 class="success_message py-3 px_1 my-2 text-center">{{ message }}</h6>
+
+    {% endif %}
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+        <h6 class="error_message py-3 px_1 my-2 text-center">{{ message }}</h6>
+
+    {% endif %}
+    {% endfor %}
+    <div id="popUp" style="margin:auto; display:none;" class="text-white text-left"> Popup Message</div>
+
+    <h3 class="h3 text-white mb-lg-3 font-weight-bold">All Songs</h3>
+
+    <div class="ml-3 mt-3 mb-3">
+        <div class="row">
+            <div class="col-md-8">
+                <form method="GET">
+                    <div class="row">
+                        <div class="col-md-7 col-sm-7">
+                            <fieldset class="form-group">
+                                {{ myFilter.form|crispy }}
+                            </fieldset>
+                        </div>
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                                <button class="btn btn-outline-danger" type="submit" id="search-btn">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {% comment %}<button class="btn btn-primary" type="submit">Search</button>{% endcomment %}
+    </div>
+    <div class="col-md-11">
+        <div class="table-responsive">
+            <table id="bootstrapdatatable" class="table table-striped table-hover" width="100%">
+                <thead>
+                    {% comment %}<th style="width:4%;"><input type="checkbox" id="checkall"></th>{% endcomment %}
+                    <th style="width:4%;">#</th>
+                    <th style="width:9%;">Add Fav</th>
+                    <th style="width:4%"></th>
+                    <th style="width:11%;">Song Name</th>
+                    <th style="width:11%;">Artist</th>
+                    <th style="width:15%;">Album</th>
+                </thead>
+                <tbody>
+                    {% for song in music  %}
+                        <tr>
+                            {% comment %}<td><input type="checkbox" class="checkthis"></td>{% endcomment %}
+                            <td class="pause/play">
+                                <div class="count">
+                                    {{forloop.counter}}
+                                </div>
+                            </td>
+                            {% comment %}<td><a href="#"><i class="far fa-heart"></i></a></td>{% endcomment %}
+                            <td>
+                                <button class="btn btn-link text-dark p-0 border-0 like-button" value="{{ song.id }}">
+                                    {% if song.id in favs %}
+                                        <i class="fas fa-heart heart-co"></i>
+                                    {% else %}
+                                        <i class="fas fa-heart"></i>
+                                    {% endif %}
+                                    {% comment %}not sure{% endcomment %}
+                                </button>
+                            </td>
+
+                            <td>
+                               <div class="btn-group dropleft">
+                                  <button type="button" class="btn dropdown-toggle btn-add" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                      <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                    </svg>
+                                  </button>
+                                  <div class="dropdown-menu" id="add-dropdown">
+                                    <div class="scrollbar" id="style-1">
+                                      <div class="force-overflow">
+                                          <h6 class="dropdown-header text-white">Add to playlist</h6>
+                                            {% for playlist in userplaylist %}
+                                                <a class="dropdown-item add-pl" href="#" songId="{{ song.id }}" data-value="{{ playlist.id }}">{{ playlist.playlist_name }}</a>
+                                            {% endfor %}
+                                            <div class="dropdown-divider"></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                            </td>
+                            <td class="text-truncate">{{ song.song_title }}</td>
+                            <td class="text-truncate"><a href="{% url 'artist-page' song.artist %}" class="text-muted">{{ song.artist }}</a></td>
+                            <td class="text-truncate">{{ song.album_title }}</td>
+
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock container %}
+
+{% block javascript %}
+<script type="text/javascript">
+{% for song in music  %}
+    {% if song.id in favs %}
+        console.log("{{song.id}}");
+    {% endif %}
+{% endfor %}
+
+    let alld = [
+        {% for mus in music %}
+        {
+            name: "{{ mus.song_title }}",
+            artist: "{{ mus.artist }}",
+            url: "{{ mus.audio_file.url }}",
+            cover: "{{ mus.album_art.url }}"
+        },
+        {% endfor %}
+        ];
+    const ap = new APlayer({
+          container: document.getElementById('aplayer'),
+          fixed:true,
+          audio: alld
+    });
+
+    console.log(alld);
+</script>
+<script type="text/javascript">
+      var elem = document.getElementById("aplayer");
+      if(elem.classList.contains("aplayer-narrow")){
+        elem.classList.remove("aplayer-narrow");
+      };
+</script>
+<script>
+  $(document).ready(function(){
+    $('.aplayer-body').css({
+      'width': '100%',
+      'background-color': '#191922'
+    });
+  });
+</script>
+<script type="text/javascript">
+var elements = document.getElementsByClassName("like-button");
+var myFunction = function() {
+    let songId = this.getAttribute("value");
+    var classli = this.classList;
+    console.log(classli);
+
+    $.ajax({
+        type: "POST",
+        url: "{% url 'like' %}",
+        dataType: "json",
+        data: {"songId": songId,"csrfmiddlewaretoken": "{{csrf_token}}"},
+        success: function(data){
+            $( "#popUp" ).html( data.msg );
+            $( "#popUp" ).show();
+            setTimeout(function() {
+              $( "#popUp" ).hide();
+            }, 2000);
+        }
+    });
+};
+Array.from(elements).forEach(function(element) {
+  element.addEventListener('click', myFunction);
+});
+</script>
+<script type="text/javascript">
+var dropdowns = document.getElementsByClassName("add-pl");
+var addPlaylist = function() {
+    let songnId = this.getAttribute("songId");
+    let playlistId = this.getAttribute("data-value")
+    console.log(playlistId,songnId);
+    $.ajax({
+        type: "POST",
+        url: "{% url 'add-playlist' %}",
+        dataType: "json",
+        data: {
+            "songId":songnId,
+            "playlistId":playlistId,
+            "csrfmiddlewaretoken": "{{csrf_token}}"
+        },
+        success: function(data){
+            $( "#popUp" ).html( data.msg );
+            $( "#popUp" ).show();
+            setTimeout(function() {
+              $( "#popUp" ).hide();
+            }, 2000);
+                }
+    })
+};
+Array.from(dropdowns).forEach(function(element) {
+  element.addEventListener('click', addPlaylist);
+});
+</script>
+{% endblock javascript %}

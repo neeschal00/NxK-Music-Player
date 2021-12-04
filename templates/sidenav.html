@@ -1,0 +1,36 @@
+{% url 'playlists-user' as playlist_user %}
+{% url 'all_songs' as all_songs %}
+{% url 'favs' as favs %}
+{% url 'explore' as explore %}
+{% load static %}
+<section id="main-section">
+  <div class="l-navbar" id="navbar">
+    <nav class="navx">
+      <div>
+        <div class="nav__brand">
+          <i class="fas fa-bars nav__toggle" id="nav-toggle"></i>
+          <a href="#" class="nav__logo"></a>
+
+        </div>
+        <div class="nav__list">
+          <a href="{% url 'all_songs' %}" class="nav__link {% if request.path == all_songs %} active {% endif %}">
+            <i class="fas fa-home nav__icon"></i>
+            <span class="nav__name">Home</span>
+          </a>
+          <a href="{% url 'explore' %}" class="nav__link {% if request.path == explore %} active {% endif %}">
+            <i class="fas fa-compass nav__icon"></i>
+            <span class="nav__name">Explore</span>
+          </a>
+          <a href="{% url 'playlists-user' %}" class="nav__link {% if request.path == playlist_user %} active {% endif %} {% if request.path == individual %} active {% endif %}">
+            <i class="fas fa-music nav__icon"></i>
+            <span class="nav__name">Playlists</span>
+          </a>
+          <a href="{% url 'favs' %}" class="nav__link {% if request.path == favs %} active {% endif %}">
+            <i class="fas fa-heart nav__icon"></i>
+            <span class="nav__name">Favourites</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</section>

@@ -1,0 +1,212 @@
+{% include "mainui.html" %}
+{% load static %}
+
+{% block title %}
+    <title>Playlist- {{ playlistd.playlist_name }} </title>
+{% endblock title %}
+{% block css %}
+<style type="text/css">
+    th{
+        color: #72727d;
+        font-size: 0.9rem;
+    }
+    tr{
+        color: #fff;
+        height: 52px;
+    }
+    td{
+        font-size: 0.9rem;
+        color: #fff;
+    }
+    td:hover,td:active{
+        color: #ef5466;
+        font-size: 0.9rem;
+    }
+    h3.h3{
+        font-weight: 700;
+    }
+
+
+</style>
+<style type="text/css">
+    .default-bg{
+      background-color: var(--bg-color);
+      color: var(--white-color);
+    }
+    h6.card-subtitle{
+      color: #a9abb3;
+    }
+    legend{
+        font-size: 3rem;
+        font-weight: 600;
+        background: -webkit-linear-gradient(#b35967,#17a2b8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    input[type=text],input[type=text]:focus,
+    .textarea,.textarea:focus{
+        background-color: #101316;
+        color: #fff;
+    }
+    input[type=text]:focus,.textarea:focus{
+        border: 1px solid #17a2b8;
+    }
+    label{
+        color: #97B4B4;
+    }
+    div{
+        color: #97B4B4;
+    }
+    .delete-s{
+        color:#333333;
+    }
+    .delete-s:hover, .delete-s:active{
+        background: #191922;
+        color: #fff;
+    }
+
+
+  </style>
+{% endblock css %}
+
+{% load crispy_forms_tags %}
+{% block container %}
+<div class="container">
+    {% for message in messages %}
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+        <h6 class="success_message py-3 px_1 my-2 text-center">{{ message }}</h6>
+
+    {% endif %}
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+        <h6 class="error_message py-3 px_1 my-2 text-center">{{ message }}</h6>
+
+    {% endif %}
+    {% endfor %}
+
+    <div class="col-md-11">
+        <div class="row">
+            <div class="col-md-4">
+                <img class="card-img-top" src="{% static "images/playlist-default.jpg" %}" alt="Card image cap">
+                {% comment %}<div class="pp-btn">
+                    <i class="fas fa-pause-circle"></i>
+                </div>{% endcomment %}
+            </div>
+            <div class="col-md-4">
+                <h3 class="h3 text-white mb-lg-3">{{ playlistd.playlist_name }}</h3>
+                {% comment %}<h5 class="h5 text-secondary ml-lg-4">{{ playlistd.creator }}</h4>{% endcomment %}
+                <h5 class="h5 text-muted mb-lg-3" style="font-size:3.2vh;">{{ playlistd.created_dt }}</h5>
+                <p class="h6 text-muted">{{ playlistd.playlist_description }}</p>
+                <a class="btn btn-secondary" data-switch="0" type="button" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-edit"></i> Edit</a>
+                <a href="/music/playlist/delete/{{ playlistd.id }}" class="btn btn-danger"><i class="fas fa-trash-alt" style="width:100%"></i></a>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="col-md-11">
+        <div class="table-responsive">
+            <table id="bootstrapdatatable" class="table table-striped table-hover" width="100%">
+                <thead>
+                    {% comment %}<th style="width:4%;"><input type="checkbox" id="checkall"></th>{% endcomment %}
+                    <th style="width:4%;">#</th>
+                    {% comment %}<th style="width:4%;"></th>{% endcomment %}
+                    <th style="width:15%;">Song Name</th>
+                    <th style="width:11%;">Artist</th>
+                    <th style="width:18%;">Album</th>
+                    <th style="width:2%"></th>
+                </thead>
+                <tbody>
+                    {% for song in music  %}
+                        <tr>
+                            {% comment %}<td><input type="checkbox" class="checkthis"></td>{% endcomment %}
+                            <td>
+                                {{forloop.counter}}
+                            </td>
+                            {% comment %}<td><a href="#"><i class="far fa-heart"></i></a></td>{% endcomment %}
+                            <td class="text-truncate">{{ song.song_title }}</td>
+                            <td class="text-truncate">{{ song.artist }}</td>
+                            <td class="text-truncate">{{ song.album_title }}</td>
+                            <td>
+                                <a href="/music/playlist/delete/song/{{ playlistd.id }}/{{ song.id }}/" class="delete-s text-center">
+                                    <i class="fas fa-trash-alt" style="width:100%"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content default-bg">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Update Playlist</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="POST">
+              {% csrf_token %}
+              <fieldset class="form-group">
+                {% comment %}<legend class="border-bottom mb-4 main-t">New Playlist</legend>{% endcomment %}
+                  {{ form|crispy }}
+              </fieldset>
+              <div class="form-group">
+                <button class="btn btn-outline-danger" type="submit">
+                    Update
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>
+
+
+
+
+{% endblock container %}
+{% block javascript %}
+<script type="text/javascript">
+let alld = [
+    {% for mus in music %}
+    {
+        name: "{{ mus.song_title }}",
+        artist: "{{ mus.artist }}",
+        url: "{{ mus.audio_file.url }}",
+        cover: "{{ mus.album_art.url }}"
+    },
+    {% endfor %}
+    ];
+const ap = new APlayer({
+      container: document.getElementById('aplayer'),
+      fixed:true,
+      audio: alld
+});
+
+console.log(alld);
+</script>
+<script type="text/javascript">
+      var elem = document.getElementById("aplayer");
+      if(elem.classList.contains("aplayer-narrow")){
+        elem.classList.remove("aplayer-narrow");
+      };
+</script>
+<script>
+  $(document).ready(function(){
+    $('.aplayer-body').css({
+      'width': '100%',
+      'background-color': '#191922'
+    });
+  });
+</script>
+{% endblock javascript %}

@@ -1,0 +1,76 @@
+{% include "mainpage.html" %}
+{% load static %}
+
+{% block title %}
+    <title>Add Music</title>
+{% endblock title %}
+{% block css %}
+<style type="text/css">
+    legend{
+            font-size: 3rem;
+            font-weight: 600;
+            background: -webkit-linear-gradient(#191922,#17a2b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        input[type=text],input[type=text]:focus,
+        input[type=email],input[type=email]:focus,
+        input[type=file],input[type=file]:focus,
+        input[type=password],input[type=password]:focus{
+            background-color: #101316;
+            color: #fff;
+        }
+        input[type=text]:focus,input[type=email]:focus,input[type=password]:focus{
+            border: 1px solid #17a2b8;
+        }
+        label{
+            color: #97B4B4;
+        }
+        div{
+            color: #97B4B4;
+        }
+        select,select:focus{
+            background-color: #101316;
+            color: #fff;
+        }
+        option,option:focus{
+            background-color: #101316;
+            color: #fff;
+        }
+</style>
+{% endblock css %}
+
+{% load crispy_forms_tags %}
+{% block container %}
+<div class="container">
+    {% for message in messages %}
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+    <h6 class="success_message py-3 px_1 my-2 text-center">{{ message }}</h6>
+
+    {% endif %}
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+    <h6 class="error_message py-3 px_1 my-2 text-center">{{ message }}</h6>
+
+    {% endif %}
+    {% endfor %}
+    <div class="col-md-8">
+        <form method="POST" enctype="multipart/form-data" action="">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4 main-t">Update Music</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">
+                    Update music
+                </button>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+
+
+
+{% endblock container %}

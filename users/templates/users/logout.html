@@ -1,0 +1,30 @@
+{% extends "mainui.html" %}
+{% load static %}
+{% block title %}
+    <title>Log Out</title>
+    <style type="text/css">
+        h2{
+            color: #fff;
+            font-weight: 600;
+        }
+        small a{
+            color: #17a2b8;
+        }
+        small a:hover{
+            color: #0056b3;
+        }
+    </style>
+{% endblock title %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h2> You have been Logged out</h2>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                <a href="{% url 'login' %}">Log In Again</a>
+            </small>
+        </div>
+    </div>
+</div>
+{% endblock content %}

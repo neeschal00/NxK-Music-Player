@@ -1,0 +1,6 @@
+django
+django-crispy-forms
+django-filter
+django-rest-framework
+pillow
+django-cors-headers

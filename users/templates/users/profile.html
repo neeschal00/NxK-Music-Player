@@ -1,0 +1,72 @@
+{% extends "mainui.html" %}
+{% load static %}
+{% block title %}
+    <title>Profile page</title>
+
+    <style type="text/css">
+        .media-body h2{
+            font-weight: 600;
+            background: -webkit-linear-gradient(#191922,#17a2b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+
+        p{
+            color: #97B4B4 !important;
+        }
+        legend{
+            font-size: 3rem;
+            font-weight: 600;
+            background: -webkit-linear-gradient(#191922,#17a2b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        input[type=text],input[type=text]:focus,
+        input[type=email],input[type=email]:focus,
+        input[type=password],input[type=password]:focus{
+            background-color: #101316;
+            color: #fff;
+        }
+        input[type=text]:focus,input[type=email]:focus,input[type=password]:focus{
+            border: 1px solid #17a2b8;
+        }
+        body{
+            color: #97B4B4;
+        }
+    </style>
+
+{% endblock title %}
+
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="content-section">
+            <div class="media">
+                <img class="rounded-circle img-fluid w-25" src="{{ user.profile.image.url }}">
+                <div class="media-body ml-3">
+                    <h2 class="account-heading">{{user.username}}</h2>
+                    <p class="text-secondary">{{user.email}}</p>
+                </div>
+            </div>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4 main-t">Profile Info</legend>
+                    {{ u_form|crispy }}
+                    {{ p_form|crispy }}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">
+                        Update
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+    <script type="text/javascript"></script>
+
+{% endblock content %}
