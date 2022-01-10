@@ -17,4 +17,6 @@ NxK music player uses several tools to appropriately function in its current sta
 ![Alt text](/Screenshots/frontpage.png?raw=true "Front Screen")
 
 - Login/Registration
-![alt-text-1](/Screenshots/login.png "Login UI") ![alt-text-2](/Screenshots/registration.png "Registration UI")
+Login             |  Registration
+:-------------------------:|:-------------------------:
+![alt-text-1](/Screenshots/login.png "Login UI")  |  ![alt-text-2](/Screenshots/registration.png "Registration UI")
