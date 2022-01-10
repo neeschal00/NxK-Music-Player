@@ -5,3 +5,14 @@ This is an attempted online **Music Streaming** platform written in Django. The 
 # Tools and Technologies:
 
 NxK music player uses several tools to appropriately function in its current state which are mentioned below :
+
+- Django
+- Bootstrap
+- HTML/CSS/Javascript
+- Aplayer jquery library
+- Ajax Form Submission
+
+# User Interface ScreenShots
+- Front Screen
+![Alt text](/Screenshots/explore.png?raw=true "Front Screen")
+
