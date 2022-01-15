@@ -16,7 +16,16 @@ NxK music player uses several tools to appropriately function in its current sta
 - Front Screen
 ![Alt text](/Screenshots/frontpage.png?raw=true "Front Screen")
 
-- Login/Registration
-Login             |  Registration
-:-------------------------:|:-------------------------:
-![alt-text-1](/Screenshots/login.png "Login UI")  |  ![alt-text-2](/Screenshots/registration.png "Registration UI")
+- Explore Page
+![Alt text](/Screenshots/explorepage.gif?raw=true "Explore Page")
+
+- All Songs Page Panel
+![Alt text](/Screenshots/homepanel.gif?raw=true "All Songs Pannel")
+
+- Favourites and Playlist
+![Alt text](/Screenshots/favplaylist.gif?raw=true "Favourites and Playlist Page")
+
+- Registration
+![alt-text-2](/Screenshots/registration.png "Registration UI")
+
+

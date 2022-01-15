@@ -201,7 +201,7 @@
   let urls = [];
 
   for(i=0;i<images.length;i++){
-    artistN = `https://www.theaudiodb.com/api/v1/json/1/search.php?s=${images[i].getAttribute("data-value")}`;
+    artistN = `https://www.theaudiodb.com/api/v1/json/2/search.php?s=${images[i].getAttribute("data-value")}`;
     urls.push(artistN);
   };
     async function getAllUrls(urls) {
