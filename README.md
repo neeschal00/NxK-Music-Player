@@ -25,6 +25,9 @@ NxK music player uses several tools to appropriately function in its current sta
 - Favourites and Playlist
 ![Alt text](/Screenshots/favplaylist.gif?raw=true "Favourites and Playlist Page")
 
+- Admin Panel
+![Alt text](/Screenshots/Admin-Dashboard.gif?raw=true "Admin Dashboard")
+
 - Registration
 ![alt-text-2](/Screenshots/registration.png "Registration UI")
 
