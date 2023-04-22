@@ -167,6 +167,7 @@ def deteFromFav(request,song_id):
 def explorepage(request):
     music = Songn.objects.order_by('added_dt')[::-1]
     distint_artist = Songn.objects.order_by('artist').values('artist').distinct()
+    print(distint_artist)
     context = {
         'music':music,
         'artists':distint_artist
@@ -189,7 +190,9 @@ def artistPage(request,name):
     artist_name = name
     context = {
     'music': music,
-    'artist': artist_name
+    'artist': artist_name,
+    'genre': music[0].genre,
+    'artistImg': music[0].album_art
     }
     print(music)
     return render(request,'music/artistpage.html',context)

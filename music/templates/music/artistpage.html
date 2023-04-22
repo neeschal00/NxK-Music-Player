@@ -45,12 +45,12 @@
     {% endfor %}
     <div class="row mt-lg-3 mb-lg-3">
         <div class="col-md-3">
-            <img class="img-fluid rounded-circle" id="artistimage" src="{{imageurl}}" alt="Card image cap" style="width:250px;height:250px;">
+            <img class="img-fluid rounded-circle" id="artistimage" src="{{artistImg.url}}" alt="Card image cap" style="width:250px;height:250px;">
         </div>
         <div class="col-md-8">
             <div class="mt-lg-3">
                 <h2 class="h2 text-white font-weight-bold">{{ artist }}</h2>
-                <h4 class="h4 text-muted" id="genreS"></h4>
+                <h4 class="h4 text-muted" id="genreS">{{ genre }}</h4>
             </div>
         </div>
     </div>
@@ -123,14 +123,18 @@ console.log(alld);
   });
 </script>
 <script>
-    let artist = "{{ artist }}";
-    let cover;
-    fetch(`https://www.theaudiodb.com/api/v1/json/2/search.php?s=${artist}`)
-    .then((res)=> res.json())
-    .then((data)=> {
-        document.getElementById("artistimage").src = data.artists[0].strArtistThumb;
-        document.getElementById("genreS").innerHTML = `Genre: ${data.artists[0].strGenre}`;
-    }).catch((err)=> alert(`No name doesn't match`));
+    // let artist = "{{ artist }}";
+    // let cover;
+    // fetch(`https://www.theaudiodb.com/api/v1/json/2/search.php?s=${artist}`)
+    // .then((res)=> res.json())
+    // .then((data)=> {
+    //     document.getElementById("artistimage").src = data.artists[0].strArtistThumb;
+    //     document.getElementById("genreS").innerHTML = `Genre: ${data.artists[0].strGenre}`;
+    // }).catch((err)=> alert(`No name doesn't match`));
+
+    
+
+
 </script>
 {% endblock javascript %}
 
