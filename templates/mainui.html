@@ -26,8 +26,8 @@
     <script>
       const APIController = (function() {
     
-      const clientId = 'your client id';
-      const clientSecret = 'your client secret';
+      const clientId = 'Your Client Id ';
+      const clientSecret = 'Your Client Secret';
 
       // private methods
       const _getToken = async () => {
@@ -95,7 +95,7 @@
 
       const _getArtist = async (token, artistName) => {
           // const queryP =  { q: 'artist:'+artistName, type: 'artist' }
-          const artist = artistName.replace(" ","%20")
+          const artist = artistName.replace(" ","%20");
           const result = await fetch(`https://api.spotify.com/v1/search?q=artist:${artist}&type=artist`, {
               method: 'GET',
               headers: { 'Authorization' : 'Bearer ' + token}

@@ -198,20 +198,29 @@
 <script type="text/javascript">
   let images = document.getElementsByClassName("artist-img");
   let artistN;
+  let apiCtrl = APIController;
+  let token = apiCtrl.getToken();
   let urls = [];
 
   for(i=0;i<images.length;i++){
-    artistN = `https://www.theaudiodb.com/api/v1/json/c824b5dd8e223ad2e4e5a5e1a261c2aa/search.php?s=${images[i].getAttribute("data-value")}`;
-    urls.push(artistN);
-  };
+     let artist = images[i].getAttribute("data-value").replace(" ","%20");
+     artistN = `https://api.spotify.com/v1/search?q=artist:${artist}&type=artist`;
+     urls.push(artistN);
+   };
+
+  token.then((token) => {
     async function getAllUrls(urls) {
     try {
         var data = await Promise.all( //make it feel like synchronous by suspending until this is fulfilled
             urls.map(
                 url =>
-                    fetch(url).then(
-                        (response) => response.json()
-                    )));
+                    fetch(url, {
+                        method: 'GET',
+                        headers: { 'Authorization' : 'Bearer ' + token}
+                    }).then(
+                          (response) => response.json()
+                      )));
+        console.log(data)
         return (data)
     } catch (error) {
         throw (error)
@@ -220,16 +229,23 @@
     const promise = Promise.resolve(getAllUrls(urls)); //returns promise object resolved with given getallurls func
     const val = [];
     promise.then(value => {
+      console.log("TEst");
+      
       for(let j=0;j<images.length;j++ ){
-        if (value[j].artists == null){
+        
+        if (value[j].artists.items.length == 0){
           images[j].src = "/static/images/defaultArtist.jpg";
         }
         else{
-          images[j].src = value[j].artists[0].strArtistThumb;
+          console.log(value[j].artists);
+          images[j].src = value[j].artists.items[0].images[0].url;
         }
       }
-      console.log(value[1].artists[0].strArtistThumb) ;
+      // console.log(value[1].artists.items[0].images[0].url) ;
     });
+  });
+  
+    
 </script>
 
 

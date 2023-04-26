@@ -15,6 +15,30 @@ NxK music player uses several tools to appropriately function in its current sta
 - Aplayer jquery library
 - Ajax Form Submission
 
+## SETUP
+### Preferred Python version 3.7
+
+Firstly clone create a virtualenv and
+
+```
+pip install -r requirements.txt
+```
+```
+python manage.py migrate
+```
+```
+python manage.py runserver
+```
+- Setup Spotify:
+Register in https://developer.spotify.com/
+Create an app and obtain the clientId and Client Secret.
+Add the obtained ClientId and ClientSecret to "mainui.html" in the templates directory like below 
+```
+const clientId = 'Your Client Id ';
+const clientSecret = 'Your Client Secret';
+```
+
+
 # User Interface ScreenShots
 - Front Screen
 ![Alt text](/Screenshots/frontpage.png?raw=true "Front Screen")
