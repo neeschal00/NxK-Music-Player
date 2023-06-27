@@ -1,5 +1,7 @@
 .TODO
 
+staticfiles/
+
 # Django #
 *.log
 *.pot
